@@ -66,11 +66,11 @@ const seedDB = async () => {
 
     // PUNTO 4: Autenticación - Asegúrate que tu modelo User encripte la contraseña con bcrypt
     const admin = new User({
-      username: "admin_diego",
-      password: "PasswordSeguro123" 
+      username: "dabanda",
+      password: "Alejo1324." 
     });
     await admin.save();
-    console.log("👤 Usuario administrador 'admin_diego' creado");
+    console.log("👤 Usuario administrador 'dabanda' creado");
 
     console.log("🚀 PROCESO COMPLETADO EXITOSAMENTE");
     process.exit();
