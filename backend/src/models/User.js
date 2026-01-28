@@ -6,11 +6,10 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true }
 });
 
-// Encriptar contraseña antes de guardar (Seguridad Punto 6)
-UserSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
+// Encriptar contraseña antes de guardar
+UserSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
 module.exports = mongoose.model('User', UserSchema);
