@@ -2,41 +2,44 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
-const { connectDB } = require('./db'); // Conexión a MongoDB Atlas
+const { connectDB } = require('./db'); 
 require('dotenv').config();
 
 const app = express();
 
 // --- 1. CONEXIÓN A LA BASE DE DATOS (Punto 5 y 7) ---
-connectDB(); // Conecta usando la URL del .env
+connectDB(); 
 
-// --- 2. MIDDLEWARES DE SEGURIDAD OBLIGATORIOS (Punto 3 y 6) ---
-app.use(helmet()); // Protege contra vulnerabilidades web comunes
+// --- 2. MIDDLEWARES DE SEGURIDAD (Punto 3 y 6) ---
+app.use(helmet()); 
+
+// AJUSTE MAESTRO DE CORS: Para que Vercel pueda leer los datos
 app.use(cors({ 
-  origin: process.env.FRONTEND_URL || 'https://portafolio-diego-banda.vercel.app',
-  optionsSuccessStatus: 200 
-})); // Configuración de CORS restringida
-app.use(express.json()); // Permite recibir datos en formato JSON
+  origin: ['https://portafolio-diego-banda.vercel.app', 'http://localhost:5173'],
+  optionsSuccessStatus: 200,
+  credentials: true
+})); 
+
+app.use(express.json()); 
 
 // --- 3. CONTROL DE TRÁFICO (Punto 3) ---
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // Bloqueo por 15 minutos
-  max: 100, // Máximo 100 peticiones por IP
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
   message: "Demasiadas peticiones desde esta IP, por favor intente más tarde."
 });
 app.use(limiter);
 
 // --- 4. RUTAS DE LA API (Punto 1 y 3) ---
-// Ruta de bienvenida para verificar que el servidor está "vivo"
 app.get('/', (req, res) => {
   res.send('🚀 Servidor Full-Stack de Diego Banda: Funcionando y Seguro');
 });
 
-// Importación de rutas (Asegúrate de crear estos archivos en la carpeta /routes)
-app.use('/api/blog', require('./routes/blogRoutes')); // Ruta para los posts del blog
-// app.use('/api/auth', require('./routes/authRoutes')); // Próximo paso: Autenticación
+// Rutas habilitadas
+app.use('/api/blog', require('./routes/blogRoutes')); 
+app.use('/api/auth', require('./routes/authRoutes')); // DESCOMENTADO PARA EL PUNTO 4
 
-// --- 5. MANEJO CENTRALIZADO DE ERRORES (Punto 3) ---
+// --- 5. MANEJO CENTRALIZADO DE ERRORES ---
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ 
@@ -46,9 +49,8 @@ app.use((err, req, res, next) => {
 });
 
 // --- 6. LANZAMIENTO DEL SERVIDOR ---
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000; // Render usa el 10000 por defecto
 
-// Agregamos '0.0.0.0' para que Render pueda enlazar el puerto correctamente
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Servidor corriendo en el puerto: ${PORT}`);
   console.log(`🔒 Seguridad Helmet, CORS y Rate-Limit activada.`);
