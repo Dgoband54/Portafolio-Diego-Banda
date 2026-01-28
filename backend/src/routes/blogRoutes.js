@@ -32,8 +32,13 @@ router.post('/', [
         const postGuardado = await nuevoPost.save();
         res.status(201).json(postGuardado);
     } catch (err) {
-        res.status(400).json({ message: 'Error al guardar el post en la base de datos' });
-    }
+    console.error('❌ ERROR REAL:', err);
+    res.status(500).json({ 
+        message: 'Error al obtener los posts',
+        error: err.message
+    });
+}
+
 });
 
 module.exports = router;
