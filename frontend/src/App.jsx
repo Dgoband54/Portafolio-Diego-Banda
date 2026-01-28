@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard'; // Crea este componente para el panel
 import Blog from './pages/Blog';
 
 // Componente para proteger rutas (Punto 4: Acceso restringido)
@@ -13,19 +12,24 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Cambié la ruta base para que lo primero que se vea sea tu Blog */}
+        <Route path="/" element={<Blog />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/login" element={<Login />} />
         
-        {/* Ruta Protegida: Solo entras si estás logueado */}
-        <Route 
+        {/* Comenté la ruta de Admin porque el archivo no existe aún */}
+        {/* <Route 
           path="/admin" 
           element={
             <PrivateRoute>
-              <AdminDashboard />
+              <div className="text-white p-10">Bienvenido al Panel (En construcción)</div>
             </PrivateRoute>
           } 
-        />
+        /> 
+        */}
       </Routes>
     </Router>
   );
 }
+
+export default App;
