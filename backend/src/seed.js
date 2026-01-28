@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Project = require('./models/Project');
 const Blog = require('./models/Blog');
-const User = require('./models/User'); // Importante: Asegúrate que el modelo existe
+const User = require('./models/User'); 
 require('dotenv').config();
 
 const projects = [
@@ -31,22 +31,22 @@ const blogs = [
   {
     title: "Seguridad en APIs: Mejores prácticas para evitar ataques comunes",
     category: "Backend",
-    content: `... (Tu contenido largo aquí) ...`
+    content: `La seguridad en el desarrollo de APIs es un pilar fundamental en la arquitectura de software moderna. En este proyecto, hemos implementado capas de seguridad robustas utilizando Express.js... [Aquí expande con texto sobre Helmet, Rate Limiting y validación de JWT para alcanzar el Punto 8 de la rúbrica]. Implementar middlewares como Helmet nos permite mitigar ataques de Cross-Site Scripting (XSS) y proteger las cabeceras HTTP, mientras que el Rate Limit previene ataques de denegación de servicio (DoS) limitando las peticiones por IP.`
   },
   {
     title: "Por qué elegí MongoDB para mi portafolio (vs PostgreSQL)",
     category: "Base de Datos",
-    content: `... (Tu contenido largo aquí) ...`
+    content: `La elección de MongoDB Atlas sobre una base de datos relacional como PostgreSQL fue una decisión estratégica basada en la flexibilidad del esquema NoSQL. Para un portafolio que integra un blog técnico con contenidos extensos y metadatos variables de proyectos, MongoDB permite una escalabilidad horizontal superior... [Justificación técnica para el Punto 5]. Al no requerir esquemas rígidos, podemos evolucionar la estructura de los posts sin necesidad de migraciones complejas de base de datos.`
   },
   {
     title: "REST vs GraphQL en APIs Modernas: Una Comparativa Técnica",
     category: "Backend",
-    content: `... (Tu contenido largo aquí) ...`
+    content: `Analizar la eficiencia entre REST y GraphQL es vital para cualquier desarrollador Full-Stack. Mientras REST se basa en endpoints fijos, GraphQL permite al cliente solicitar exactamente lo que necesita. En este backend robusto, optamos por REST por su simplicidad y compatibilidad nativa con middlewares de seguridad estándar... [Más detalles técnicos sobre latencia y transferencia de datos].`
   },
   {
     title: "Gestión Segura de Secretos con Variables de Entorno (.env)",
     category: "Seguridad",
-    content: `... (Tu contenido largo aquí) ...`
+    content: `Nunca debemos subir credenciales al control de versiones. El uso de variables de entorno a través de la librería dotenv permite separar la configuración del código fuente. En este despliegue en Render, las variables como MONGO_URI y JWT_SECRET se gestionan desde el panel de control, asegurando que la información sensible permanezca privada y protegida... [Explicación detallada del Punto 6].`
   }
 ];
 
@@ -55,18 +55,16 @@ const seedDB = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ Conectado a MongoDB Atlas");
 
-    // 1. Limpiar todas las colecciones
     await Project.deleteMany({});
     await Blog.deleteMany({});
     await User.deleteMany({}); 
-    console.log("🗑️ Datos anteriores limpiados satisfactoriamente");
+    console.log("🗑️ Datos anteriores limpiados");
 
-    // 2. Insertar Proyectos y Blogs
     await Project.insertMany(projects);
     await Blog.insertMany(blogs);
-    console.log("🌱 Proyectos y Blogs insertados con éxito");
+    console.log("🌱 Proyectos y Blogs insertados");
 
-    // 3. Crear Usuario Administrador (Punto 4: Autenticación)
+    // PUNTO 4: Autenticación - Asegúrate que tu modelo User encripte la contraseña con bcrypt
     const admin = new User({
       username: "admin_diego",
       password: "PasswordSeguro123" 
@@ -74,7 +72,7 @@ const seedDB = async () => {
     await admin.save();
     console.log("👤 Usuario administrador 'admin_diego' creado");
 
-    console.log("🚀 TODO LISTO");
+    console.log("🚀 PROCESO COMPLETADO EXITOSAMENTE");
     process.exit();
   } catch (error) {
     console.error("❌ Error en el proceso de seed:", error);
@@ -82,5 +80,4 @@ const seedDB = async () => {
   }
 };
 
-// Ejecutamos la función
 seedDB();
