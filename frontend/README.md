@@ -1,36 +1,84 @@
-Informe Técnico de Desarrollo: Portafolio Profesional Full-Stack
-Este proyecto constituye la culminación de la formación técnica en desarrollo de software, integrando diversas tecnologías y metodologías para presentar una solución web completa, segura y funcional. A continuación, se detallan los pilares técnicos que justifican el cumplimiento de las competencias adquiridas durante el curso.
+Informe Técnico de Desarrollo: Arquitectura y Despliegue de un Portafolio Profesional Full-Stack
+Autor: Diego Banda Fecha: 28 de enero de 2026 Ubicación: Quito, Ecuador
 
-Justificación de Competencias
-1. Frontend Moderno
-La interfaz de usuario ha sido desarrollada utilizando React.js y Vite, garantizando una carga eficiente y una estructura de componentes reutilizable. El diseño visual se gestionó mediante Tailwind CSS, aplicando un enfoque responsivo que asegura la adaptabilidad de la plataforma en dispositivos móviles, tablets y ordenadores.
+1. Resumen Ejecutivo
+Este proyecto constituye la culminación de la formación técnica en desarrollo de software, integrando diversas tecnologías y metodologías para presentar una solución web completa, segura y funcional. La plataforma no solo cumple con los requisitos estéticos, sino que implementa una arquitectura desacoplada (Decoupled Architecture) que separa el cliente del servidor, garantizando escalabilidad y mantenibilidad profesional.
 
-2. Backend Robusto e Integración
-El proyecto demuestra la capacidad de conectar una interfaz de usuario con servicios de procesamiento de datos. Se ha implementado una arquitectura que permite la gestión de proyectos y la integración con servicios externos para el manejo de formularios, simulando la lógica de un servidor dedicado de manera eficiente.
+2. Pilares de Justificación Técnica y Competencias
+2.1. Ingeniería de Frontend Moderno
+La interfaz de usuario ha sido desarrollada utilizando React.js bajo el entorno de construcción Vite, garantizando una carga eficiente mediante Hot Module Replacement (HMR).
 
-3. Persistencia de Datos
-La aplicación refleja la gestión de información estructurada mediante la presentación dinámica de proyectos reales, tales como Tyzox y The Burgers Band. El sistema está diseñado para facilitar la transición hacia el consumo de APIs externas y la gestión de bases de datos profesionales como PostgreSQL o MongoDB.
+Modularización: Se empleó una estructura de componentes reutilizables, lo que permite un mantenimiento centralizado del código.
 
-4. Seguridad
-La seguridad se ha abordado mediante la integridad de los datos y la navegación segura:
+Diseño Atómico: El diseño visual se gestionó mediante Tailwind CSS, aplicando un enfoque de Utility-First y diseño responsivo (Mobile-First), asegurando una experiencia de usuario óptima en dispositivos móviles, tablets y ordenadores de escritorio.
 
-Implementación de validaciones en el lado del cliente para asegurar el flujo de información.
+Interactividad: Se integraron librerías de iconos vectoriales como Lucide React para una interfaz intuitiva y moderna.
 
-Uso de atributos de seguridad rel="noopener noreferrer" en enlaces externos para prevenir vulnerabilidades de navegación.
+2.2. Arquitectura de Backend y Middleware Robusto
+El proyecto demuestra la capacidad de conectar una interfaz de usuario con servicios de procesamiento de datos en tiempo real.
 
-Gestión de rutas y protección de activos bajo protocolos de comunicación seguros.
+Servidor API: Se construyó un servidor basado en Node.js y Express, encargado de gestionar las peticiones HTTP y la lógica de negocio.
 
-5. Colaboración con Git
-El desarrollo ha seguido un flujo de trabajo profesional utilizando Git como sistema de control de versiones. Se evidencia el manejo de repositorios remotos en GitHub, la organización de ramas y la realización de confirmaciones (commits) técnicos, fundamentales para el desarrollo colaborativo en la industria.
+Integración: La arquitectura permite la gestión de proyectos y la comunicación fluida entre el cliente y el servidor de base de datos, simulando la lógica de un sistema de producción empresarial.
 
-6. Despliegue en la Nube
-El proyecto se encuentra desplegado de forma exitosa en la plataforma Vercel, bajo la URL oficial: https://portafolio-diego-banda.vercel.app/. Este proceso confirma el dominio de los flujos de despliegue continuo (Continuous Deployment) en entornos de producción reales.
+2.3. Persistencia de Datos y Gestión NoSQL
+La aplicación refleja una gestión avanzada de información estructurada.
 
-Tecnologías Principales
-Frontend: React, Tailwind CSS, Lucide React.
+Modelado de Datos: Se utilizó MongoDB Atlas como servicio de base de datos en la nube. La elección de una base de datos NoSQL responde a la necesidad de flexibilidad para gestionar documentos como los blogs técnicos y la información de los proyectos (ej. Tyzox y The Burgers Band).
 
-Entorno: Vite, Node.js.
+Integridad: Se implementaron esquemas mediante Mongoose para asegurar que cada entrada en la base de datos cumpla con los requisitos técnicos de la plataforma.
 
-Control de Versiones: Git, GitHub.
+2.4. Protocolos de Seguridad y Blindaje de API
+La seguridad fue un eje transversal en el desarrollo, abordando tanto el lado del servidor como el del cliente:
 
-Hosting: Vercel.
+Seguridad de Encabezados: Implementación de Helmet.js para establecer cabeceras HTTP seguras, protegiendo al sitio de ataques de XSS y Sniffing.
+
+Control de Accesos (CORS): Configuración estricta de Cross-Origin Resource Sharing para autorizar únicamente las peticiones provenientes del dominio oficial en Vercel.
+
+Protección de Tráfico: Uso de Express-Rate-Limit para mitigar ataques de denegación de servicio (DoS) mediante la restricción de solicitudes por IP.
+
+Hashing de Credenciales: Las contraseñas se gestionan mediante Bcryptjs, aplicando algoritmos de encriptación irreversibles para cumplir con los estándares de protección de datos personales.
+
+2.5. Ciclo de Vida del Software y Control de Versiones
+El desarrollo ha seguido un flujo de trabajo profesional utilizando Git.
+
+Versionamiento: Se evidencia el manejo de repositorios remotos en GitHub, con una organización técnica de confirmaciones (commits) descriptivos que documentan la evolución del código.
+
+Integración Continua: El flujo permite que cada actualización en el código sea validada antes de pasar al entorno de producción.
+
+3. Instrucciones de Implementación y Ejecución Local
+Para la auditoría o réplica del sistema en un entorno local, se deben seguir los siguientes procedimientos técnicos:
+
+3.1. Requisitos de Entorno
+Node.js: Versión mínima 18.x.
+
+MongoDB: Acceso a un clúster activo o instancia local.
+
+3.2. Despliegue del Backend
+Acceder al directorio correspondiente: cd backend.
+
+Instalar el ecosistema de dependencias: npm install.
+
+Configuración de variables (.env): Definir MONGO_URI, PORT y JWT_SECRET.
+
+Población de datos: Ejecutar node src/seed.js para insertar los 4 artículos técnicos obligatorios.
+
+Arranque del servicio: node src/index.js.
+
+3.3. Despliegue del Frontend
+Acceder al directorio del cliente: cd frontend.
+
+Instalación de paquetes: npm install.
+
+Ejecución del servidor de desarrollo: npm run dev.
+
+4. Conclusión del Despliegue en la Nube
+El proyecto se encuentra operativo en un entorno de producción real, distribuido de la siguiente manera:
+
+Frontend Hosting: Vercel [https://portafolio-diego-banda.vercel.app/].
+
+Backend Hosting: Render.
+
+Estado: Live / Producción.
+
+Este despliegue confirma el dominio de los flujos de Continuous Deployment (CD) y la capacidad del desarrollador para poner en marcha sistemas complejos y funcionales bajo protocolos de comunicación segura.
